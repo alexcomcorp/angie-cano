@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angie Cano | Retrato editorial</title>
+  <meta name="description" content="Angie Cano. Portafolio de retrato editorial y moda en estudio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Montserrat:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Encabezado fijo con la marca -->
+  <header class="header" id="header">
+    <a href="#inicio" class="brand" aria-label="Angie Cano, inicio">
+      <span class="brand__name">Angie Cano</span>
+      <span class="brand__sub">Retrato editorial</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <nav class="nav" id="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- Portada con carrusel de polaroids -->
+  <section class="hero" id="inicio">
+    <div class="hero__texture" aria-hidden="true"></div>
+
+    <div class="clothesline" id="clothesline">
+      <div class="rope" aria-hidden="true"></div>
+      <div class="track" id="track"></div>
+    </div>
+
+    <div class="hero__content">
+      <p class="hero__kicker">Edición 01 · Colección Estudio</p>
+      <h1 class="hero__title">Angie Cano</h1>
+      <p class="hero__tagline">Moda, retrato y presencia frente a la cámara</p>
+      <a href="#portafolio" class="btn">Ver portafolio</a>
+    </div>
+
+    <div class="carousel-ui">
+      <button class="arrow" id="prev" aria-label="Fotos anteriores">&#8592;</button>
+      <div class="dots" id="dots"></div>
+      <button class="arrow" id="next" aria-label="Fotos siguientes">&#8594;</button>
+    </div>
+
+    <p class="signature" aria-hidden="true">Angie Cano</p>
+    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  </section>
+
+  <!-- Sobre mí, estilo página de revista -->
+  <section class="about" id="sobre-mi">
+    <div class="about__image reveal">
+      <img src="img/foto-09.jpg" alt="Retrato frontal de Angie Cano con chaleco negro y camisa a rayas">
+      <span class="about__caption">Portada · Edición 01</span>
+    </div>
+    <div class="about__text reveal">
+      <p class="section-label">Sobre mí</p>
+      <h2>Cada sesión cuenta una historia distinta</h2>
+      <p class="dropcap">Soy Angie Cano. Trabajo frente a la cámara en sesiones de estudio, moda y retrato editorial. Me interesa la luz suave, los colores neutros y las miradas directas.</p>
+      <p>Colaboro con fotógrafos, marcas de ropa y accesorios, y proyectos de maquillaje. Si buscas un rostro para tu campaña o tu catálogo, escríbeme.</p>
+      <ul class="stats">
+        <li><strong data-count="9">0</strong><span>Looks en esta edición</span></li>
+        <li><strong data-count="4">0</strong><span>Estilos de sesión</span></li>
+        <li><strong data-count="1">0</strong><span>Estudio, luz natural</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Portafolio en cuadrícula -->
+  <section class="portfolio" id="portafolio">
+    <div class="portfolio__head reveal">
+      <p class="section-label">Portafolio</p>
+      <h2>Galería editorial</h2>
+      <div class="filters" id="filters">
+        <button class="filter is-active" data-filter="todos">Todos</button>
+        <button class="filter" data-filter="retrato">Retrato</button>
+        <button class="filter" data-filter="moda">Moda</button>
+        <button class="filter" data-filter="estudio">Estudio</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- Cita destacada -->
+  <section class="quote reveal">
+    <p>"La mejor foto llega cuando dejas de posar y empiezas a estar."</p>
+    <span>Angie Cano</span>
+  </section>
+
+  <!-- Contacto -->
+  <section class="contact" id="contacto">
+    <div class="contact__box reveal">
+      <p class="section-label">Contacto</p>
+      <h2>Trabajemos juntos</h2>
+      <p>Cuéntame tu proyecto y te respondo en menos de 48 horas.</p>
+      <form class="form" id="contactForm" novalidate>
+        <div class="form__row">
+          <label>Nombre<input type="text" name="nombre" required></label>
+          <label>Correo<input type="email" name="correo" required></label>
+        </div>
+        <label>Mensaje<textarea name="mensaje" rows="4" required></textarea></label>
+        <button type="submit" class="btn btn--light">Enviar mensaje</button>
+        <p class="form__status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer__brand">Angie Cano</p>
+    <div class="footer__links">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="TikTok">TikTok</a>
+      <a href="#contacto">Correo</a>
+    </div>
+    <p class="footer__copy">© <span id="year"></span> Angie Cano. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Visor de imagen -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lbClose" aria-label="Cerrar">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Anterior">&#8592;</button>
+    <figure>
+      <img id="lbImg" src="" alt="">
+      <figcaption id="lbCaption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Siguiente">&#8594;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
