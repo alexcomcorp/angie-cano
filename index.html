@@ -123,15 +123,12 @@
     <p class="footer__copy">© <span id="year"></span> Angie Cano. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Visor de imagen -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox__close" id="lbClose" aria-label="Cerrar">&times;</button>
-    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Anterior">&#8592;</button>
-    <figure>
-      <img id="lbImg" src="" alt="">
-      <figcaption id="lbCaption"></figcaption>
-    </figure>
-    <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Siguiente">&#8594;</button>
+  <!-- Vista ampliada de la foto seleccionada -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" aria-hidden="true">
+    <button class="btn btn--back" id="lbClose">&#8592; Volver al inicio</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Foto anterior">&#8592;</button>
+    <img class="viewer__img" id="lbImg" src="" alt="">
+    <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Foto siguiente">&#8594;</button>
   </div>
 
   <script src="script.js"></script>

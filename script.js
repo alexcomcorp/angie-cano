@@ -178,7 +178,6 @@ document.getElementById("filters").addEventListener("click", e => {
 /* ---------- Visor de imágenes ---------- */
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
-const lbCaption = document.getElementById("lbCaption");
 let lbIndex = 0;
 
 function openLightbox(i) {
@@ -188,20 +187,44 @@ function openLightbox(i) {
   lightbox.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   pauseAutoplay();
+  // Añade una entrada al historial: el botón Atrás del navegador también regresa
+  history.pushState({ foto: i }, "", `#foto-${i + 1}`);
+  document.getElementById("lbClose").focus();
 }
 
 function showLightboxImage() {
   const p = photos[lbIndex];
+  lbImg.classList.remove("is-in");
+  void lbImg.offsetWidth; // reinicia la animación de entrada
   lbImg.src = p.src;
   lbImg.alt = `Angie Cano, ${p.label.toLowerCase()}`;
-  lbCaption.textContent = `${p.title} · ${p.label}`;
+  lbImg.classList.add("is-in");
+  if (history.state && history.state.foto !== undefined) {
+    history.replaceState({ foto: lbIndex }, "", `#foto-${lbIndex + 1}`);
+  }
 }
 
-function closeLightbox() {
+// Cierra la vista y lleva al usuario a la portada
+function closeLightbox(fromHistory = false) {
+  if (!lightbox.classList.contains("is-open")) return;
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  if (!fromHistory) history.replaceState(null, "", "#inicio");
+  window.scrollTo({ top: 0, behavior: "smooth" });
   restartAutoplay();
+}
+
+window.addEventListener("popstate", () => closeLightbox(true));
+
+// Si alguien entra con un enlace directo como #foto-3, abre esa foto
+const directMatch = location.hash.match(/^#foto-(\d+)$/);
+if (directMatch) {
+  const n = Number(directMatch[1]) - 1;
+  if (photos[n]) {
+    history.replaceState(null, "", "#inicio");
+    setTimeout(() => openLightbox(n), 300);
+  }
 }
 
 function stepLightbox(dir) {
@@ -228,10 +251,17 @@ document.addEventListener("keydown", e => {
   }
 });
 
-document.getElementById("lbClose").addEventListener("click", closeLightbox);
+document.getElementById("lbClose").addEventListener("click", () => closeLightbox());
 document.getElementById("lbPrev").addEventListener("click", () => stepLightbox(-1));
 document.getElementById("lbNext").addEventListener("click", () => stepLightbox(1));
-lightbox.addEventListener("click", e => e.target === lightbox && closeLightbox());
+
+// Deslizar con el dedo dentro de la vista ampliada
+let lbTouchX = 0;
+lightbox.addEventListener("touchstart", e => (lbTouchX = e.touches[0].clientX), { passive: true });
+lightbox.addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - lbTouchX;
+  if (Math.abs(dx) > 50) stepLightbox(dx < 0 ? 1 : -1);
+});
 
 /* ---------- Encabezado, menú y animaciones de scroll ---------- */
 const header = document.getElementById("header");
